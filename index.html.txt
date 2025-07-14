@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Default language set to English -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="USDC.school - Master the Future of Digital Dollar Education" data-zh="USDC.school - 掌握数字美元教育的未来">USDC.school - Master the Future of Digital Dollar Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Header area */
+        header {
+            background-color: #0052FF; /* Circle's brand blue */
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            min-height: 500px; /* Ensure enough space for carousel and content */
+            display: flex; /* Use Flexbox to center content */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1; /* Ensure content is above carousel */
+        }
+
+        /* Language toggle container */
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10; /* Ensure it's on top */
+        }
+
+        .language-toggle button {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .language-toggle button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: #fff;
+        }
+
+        .language-toggle button.active {
+            background-color: #FFD700; /* Active language button color */
+            color: #0052FF;
+            border-color: #FFD700;
+        }
+
+        /* Carousel container */
+        #header-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place below content */
+            overflow: hidden;
+        }
+
+        /* Carousel single slide */
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 1s ease-in-out; /* Fade in/out effect */
+        }
+
+        .carousel-slide.active {
+            opacity: 1; /* Show when active */
+        }
+
+        /* Carousel overlay for text readability */
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay */
+            z-index: -1; /* Ensure it's above carousel, below content */
+        }
+
+        /* Header content styles, ensure they are above the carousel */
+        header h1, header h2, header p, .cta-hero, .disclaimer-header {
+            position: relative;
+            z-index: 2; /* Ensure above overlay and carousel */
+        }
+
+        header h1 {
+            font-size: 4.5em;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for readability */
+        }
+
+        header h2 {
+            font-size: 2.2em;
+            margin-top: 0;
+            font-weight: 300;
+            opacity: 0.95;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 20px auto 40px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        /* CTA Buttons */
+       .cta-hero {
+            margin-top: 30px;
+        }
+
+       .button {
+            display: inline-block;
+            padding: 15px 35px;
+            margin: 10px;
+            border-radius: 50px; /* Rounded buttons */
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+       .button.primary {
+            background-color: #FFD700; /* Striking gold */
+            color: #0052FF;
+            border: 2px solid #FFD700;
+        }
+
+       .button.primary:hover {
+            background-color: #e6c200;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+       .button.secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+       .button.secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header disclaimer style */
+        .disclaimer-header {
+            font-size: 0.85em;
+            margin-top: 20px;
+            max-width: 700px;
+            opacity: 0.8;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* General section styles */
+        section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        section h3 {
+            font-size: 2.8em;
+            margin-bottom: 50px;
+            color: #0052FF;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        section h3::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #FFD700;
+            border-radius: 2px;
+        }
+
+        section p {
+            font-size: 1.15em;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+       .section-dark {
+            background-color: #eef3f6;
+        }
+
+        /* Grid layout */
+       .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+       .card {
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid #0052FF;
+        }
+
+       .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+       .card h4 {
+            color: #0052FF;
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+       .card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+       .card ul li {
+            margin-bottom: 12px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.05em;
+        }
+
+       .card ul li::before {
+            content: '✓';
+            color: #FFD700; /* Gold checkmark */
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+       .feature-item {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+       .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+       .feature-item h4 {
+            color: #0052FF;
+            font-size: 1.6em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Form area */
+        #inquiry-form {
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            max-width: 700px;
+            margin: 50px auto;
+            text-align: left;
+            border-top: 5px solid #FFD700;
+        }
+
+        /* Styles for the Google Form iframe */
+        #google-form-iframe {
+            width: 100%;
+            border: none;
+            min-height: 812px; /* Set a minimum height for the form */
+            overflow: hidden; /* Hide scrollbars if Google Form handles its own scrolling */
+            margin-top: 20px; /* Add some space above the iframe */
+        }
+
+       .privacy-note {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.95em;
+            border-top: 5px solid #0052FF;
+            margin-top: 40px; /* Add margin to separate from appendix */
+        }
+
+        footer p {
+            margin: 8px 0;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            header {
+                min-height: 400px;
+            }
+            header h1 {
+                font-size: 3em;
+            }
+
+            header h2 {
+                font-size: 1.6em;
+            }
+
+            section h3 {
+                font-size: 2.2em;
+            }
+
+           .grid-container {
+                grid-template-columns: 1fr;
+            }
+
+           .button {
+                display: block;
+                width: calc(100% - 20px);
+                margin: 10px auto;
+            }
+
+            #inquiry-form {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                min-height: 350px;
+            }
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            header h2 {
+                font-size: 1.3em;
+            }
+
+            section {
+                padding: 50px 15px;
+            }
+
+            section h3 {
+                font-size: 1.8em;
+            }
+
+           .card,.feature-item {
+                padding: 25px;
+            }
+
+           .card h4 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Language Toggle Buttons -->
+        <div class="language-toggle">
+            <button id="lang-en" class="active">English</button>
+            <button id="lang-zh">中文</button>
+        </div>
+
+        <!-- Carousel container -->
+        <div id="header-carousel">
+            <!-- Image sources: Unsplash or Pexels, choose free images related to blockchain, digital currency, education -->
+            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1621509376044-f8d2b9f6b4d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTg3NDR8MHwxfHxibG9ja2NoYWluJTIwZmluYW5jZXxlbnwwfHx8fDE3MjA4NzE2ODV8MA&ixlib=rb-4.0.3&q=80&w=1080');"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1620321023274-d4263a56677f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTg3NDR8MHwxfHxkZWdpdGFsJTIwY3VycmVuY3klMjBlZHVjYXRpb258ZW58MHx8fHwxNzIwODcxNzE4fDA&ixlib=rb-4.0.3&q=80&w=1080');"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1639762681023-e9102a08610c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTg3NDR8MHwxfHxzZWN1cmUlMjBmaW5hbmNlJTIwdGVjaG5vbG9neXxlbnwwfHx8fDE3MjA4NzE3NDR8MA&ixlib=rb-4.0.3&q=80&w=1080');"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1624996752382-8472338d77b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTg3NDR8MHwxfHxzYWZlJTIwc3RhYmxlY29pbnxlbnwwfHx8fDE3MjA4NzE3Njh8MA&ixlib=rb-4.0.3&q=80&w=1080');"></div>
+        </div>
+        <!-- Carousel overlay for text readability -->
+        <div class="carousel-overlay"></div>
+
+        <h1 id="main-title" data-en="USDC.school" data-zh="USDC.school">USDC.school</h1>
+        <h2 id="subtitle" data-en="Master the Future of Digital Dollar Education" data-zh="掌握数字美元教育的未来">Master the Future of Digital Dollar Education</h2>
+        <p id="tagline" data-en="A category-defining domain connecting stablecoin innovation with the forefront of Web3 education." data-zh="一个定义品类的域名，连接稳定币创新与 Web3 教育前沿。">A category-defining domain connecting stablecoin innovation with the forefront of Web3 education.</p>
+        <div class="cta-hero">
+            <a href="#inquiry-form" class="button primary" data-en="Make an Offer" data-zh="提出报价">Make an Offer</a>
+            <a href="#domain-details" class="button secondary" data-en="View Details" data-zh="查看详细信息">View Details</a>
+        </div>
+        <p id="header-disclaimer" class="disclaimer-header" data-en="Disclaimer: USDC.school is an independent educational resource platform and is not officially affiliated with, endorsed by, or sponsored by Circle or USDC." data-zh="免责声明：USDC.school 是一个独立的教育资源平台，与 Circle 或 USDC 没有任何官方关联、认可或赞助。">Disclaimer: USDC.school is an independent educational resource platform and is not officially affiliated with, endorsed by, or sponsored by Circle or USDC.</p>
+    </header>
+
+    <section id="value-proposition" class="section-dark">
+        <h3 data-en="USDC & Circle: Trust, Stability, and Global Impact" data-zh="USDC 与 Circle：信任、稳定与全球影响力">USDC & Circle: Trust, Stability, and Global Impact</h3>
+        <p data-en="The `usdc.school` domain is closely tied to USDC, one of the world's most trusted and widely adopted digital currencies, and its issuer, Circle, inheriting unparalleled credibility and market dominance." data-zh="`usdc.school` 域名与全球最受信任和广泛采用的数字货币之一 USDC 及发行方 Circle 紧密相连，继承了无与伦比的信誉和市场主导地位。">The `usdc.school` domain is closely tied to USDC, one of the world's most trusted and widely adopted digital currencies, and its issuer, Circle, inheriting unparalleled credibility and market dominance.</p>
+        <div class="grid-container">
+            <div class="card">
+                <h4 data-en="USDC: The Leading Digital Dollar" data-zh="USDC：全球领先的数字美元">USDC: The Leading Digital Dollar</h4>
+                <p data-en="USDC is the world's largest regulated digital dollar, 100% backed by highly liquid cash and cash equivalents, and redeemable 1:1 for US dollars." data-zh="USDC 是全球最大、受监管的数字美元，由高度流动的现金和现金等价资产 100% 支持，并可按 1:1 比例兑换为美元。">USDC is the world's largest regulated digital dollar, 100% backed by highly liquid cash and cash equivalents, and redeemable 1:1 for US dollars.</p>
+                <ul>
+                    <li data-en="Circulation: Over $62.68 billion" data-zh="流通量：超过 626.8 亿美元">Circulation: Over $62.68 billion</li>
+                    <li data-en="Annual Growth Rate: 78%" data-zh="年增长率：78%">Annual Growth Rate: 78%</li>
+                    <li data-en="Total Historical Transaction Volume: Over $26 trillion" data-zh="历史总交易量：超过 26 万亿美元">Total Historical Transaction Volume: Over $26 trillion</li>
+                    <li data-en="Globally Available: 185 countries" data-zh="全球可用：185 个国家/地区">Globally Available: 185 countries</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4 data-en="Circle: Foundation of Trust and Compliance" data-zh="Circle：信任与合规的基石">Circle: Foundation of Trust and Compliance</h4>
+                <p data-en="As the issuer of USDC, Circle operates as a regulated financial services firm. We publish monthly attestations by a top-tier accounting firm, ensuring unparalleled transparency and assurance." data-zh="作为 USDC 的发行方，Circle 是一家受监管的金融服务企业。我们每月发布由四大会计师事务所出具的储备金证明，确保无与伦比的透明度和保证。">As the issuer of USDC, Circle operates as a regulated financial services firm. We publish monthly attestations by a top-tier accounting firm, ensuring unparalleled transparency and assurance.</p>
+                <ul>
+                    <li data-en="Regulated Entity: Complies with strict U.S. laws and standards" data-zh="受监管实体：符合严格的美国法律和标准">Regulated Entity: Complies with strict U.S. laws and standards</li>
+                    <li data-en="100% Asset-Backed: Reserves invested in SEC-registered money market funds" data-zh="100% 资产支持：储备金投资于 SEC 注册的货币市场基金">100% Asset-Backed: Reserves invested in SEC-registered money market funds</li>
+                    <li data-en="Global Network: Connects 1000+ banks, blockchains, and distributors" data-zh="全球网络：连接 1000 多个银行、区块链和分销商">Global Network: Connects 1000+ banks, blockchains, and distributors</li>
+                    <li data-en="Real-World Applications: Powers international payments, small business transactions, and stable payrolls" data-zh="现实应用：赋能国际支付、小型企业交易和稳定薪资">Real-World Applications: Powers international payments, small business transactions, and stable payrolls</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="use-cases">
+        <h3 data-en="The Infinite Possibilities of `.school`: Education, Innovation & Community" data-zh="`.school` 的无限可能：教育、创新与社区">The Infinite Possibilities of `.school`: Education, Innovation & Community</h3>
+        <p data-en="`usdc.school` is more than just a domain; it's a strategic gateway to Web3 expertise, innovation, and community building. It offers a unique solution in a world with a growing digital asset knowledge gap." data-zh="`usdc.school` 不仅仅是一个域名，它是一个通往 Web3 领域专业知识、创新和社区建设的战略门户。在数字资产知识鸿沟日益扩大的今天，它提供了独特的解决方案。">`usdc.school` is more than just a domain; it's a strategic gateway to Web3 expertise, innovation, and community building. It offers a unique solution in a world with a growing digital asset knowledge gap.</p>
+        <div class="grid-container">
+            <div class="card">
+                <h4 data-en="Web3 Education Platform" data-zh="Web3 教育平台">Web3 Education Platform</h4>
+                <p data-en="Establish a comprehensive online academy offering courses on stablecoins, blockchain fundamentals, and digital finance. Addresses the urgent need for Web3 knowledge dissemination, similar to Tether's efforts in digital asset education." data-zh="建立一个全面的在线学院，提供关于稳定币、区块链基础知识和数字金融的课程。满足对 Web3 知识普及的迫切需求，类似于 Tether 在数字资产教育方面的努力。" >Establish a comprehensive online academy offering courses on stablecoins, blockchain fundamentals, and digital finance. Addresses the urgent need for Web3 knowledge dissemination, similar to Tether's efforts in digital asset education.</p>
+            </div>
+            <div class="card">
+                <h4 data-en="Developer Training Hub" data-zh="开发者培训中心">Developer Training Hub</h4>
+                <p data-en="Provide specialized training for blockchain developers, focusing on integrating USDC into decentralized applications (dApps) and smart contracts, leveraging foundations like Ethereum and Aave." data-zh="为区块链开发者提供专业培训，重点关注如何将 USDC 集成到去中心化应用 (dApps) 和智能合约中，利用以太坊、Aave 等平台的基础。">Provide specialized training for blockchain developers, focusing on integrating USDC into decentralized applications (dApps) and smart contracts, leveraging foundations like Ethereum and Aave.</p>
+            </div>
+            <div class="card">
+                <h4 data-en="USDC Community Hub" data-zh="USDC 社区枢纽">USDC Community Hub</h4>
+                <p data-en="Create a vibrant forum and resource center fostering discussion, support, and collaboration among USDC users, developers, and enthusiasts, similar to community functions provided by ENS domains." data-zh="创建一个充满活力的论坛和资源中心，促进 USDC 用户、开发者和爱好者之间的讨论、支持和协作，类似于 ENS 域名提供的社区功能。">Create a vibrant forum and resource center fostering discussion, support, and collaboration among USDC users, developers, and enthusiasts, similar to community functions provided by ENS domains.</p>
+            </div>
+            <div class="card">
+                <h4 data-en="Enterprise Training & Research" data-zh="企业培训与研究">Enterprise Training & Research</h4>
+                <p data-en="Offer customized stablecoin and digital asset training for financial institutions and enterprises, or serve as a center for in-depth research and analysis of the stablecoin market, helping businesses stay ahead in the digital economy." data-zh="为金融机构和企业提供定制化的稳定币和数字资产培训，或作为深入研究和分析稳定币市场的中心，助力企业在数字经济中保持领先。">Offer customized stablecoin and digital asset training for financial institutions and and enterprises, or serve as a center for in-depth research and analysis of the stablecoin market, helping businesses stay ahead in the digital economy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-premium" class="section-dark">
+        <h3 data-en="Why `usdc.school` is Your Premium Investment?" data-zh="为何 `usdc.school` 是您的优质投资？">Why `usdc.school` is Your Premium Investment?</h3>
+        <p data-en="This domain combines brevity, high-demand keywords, and niche relevance, making it an exceptional strategic asset that transcends traditional domain valuation." data-zh="该域名结合了简洁性、高需求关键词和特定利基市场的相关性，使其成为一项卓越的战略资产，超越了传统域名的价值范畴。">This domain combines brevity, high-demand keywords, and niche relevance, making it an exceptional strategic asset that transcends traditional domain valuation.</p>
+        <div class="grid-container">
+            <div class="feature-item">
+                <h4 data-en="Concise & Memorable" data-zh="简洁易记">Concise & Memorable</h4>
+                <p data-en="Short and powerful, easy to remember and type, enhancing brand recognition and recall." data-zh="短小精悍，易于记忆和输入，提升品牌识别度和用户召回率。">Short and powerful, easy to remember and type, enhancing brand recognition and recall.</p>
+            </div>
+            <div class="feature-item">
+                <h4 data-en="High-Demand Keyword" data-zh="高需求关键词">High-Demand Keyword</h4>
+                <p data-en="“USDC” is a highly relevant and recognized keyword in the industry, with significant search volume and market influence, providing instant credibility." data-zh="“USDC”是行业内高度相关且广受认可的关键词，具有巨大搜索量和市场影响力，赋予即时信誉。">“USDC” is a highly relevant and recognized keyword in the industry, with significant search volume and market influence, providing instant credibility.</p>
+            </div>
+            <div class="feature-item">
+                <h4 data-en="Precise Niche Market" data-zh="精准利基市场">Precise Niche Market</h4>
+                <p data-en="The “.school” TLD precisely targets Web3 education and institutional buyers, attracting strategic investments rather than a general market." data-zh="“.school”顶级域名精准定位 Web3 教育和机构买家，吸引战略性投资，而非通用市场。">The “.school” TLD precisely targets Web3 education and institutional buyers, attracting strategic investments rather than a general market.</p>
+            </div>
+            <div class="feature-item">
+                <h4 data-en="Branding Potential" data-zh="品牌塑造潜力">Branding Potential</h4>
+                <p data-en="Unique and striking, it immediately conveys its purpose, ideal for establishing an authoritative brand and reducing marketing costs." data-zh="独特且引人注目，能立即传达其目的，非常适合建立权威品牌，降低营销成本。">Unique and striking, it immediately conveys its purpose, ideal for establishing an authoritative brand and reducing marketing costs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="inquiry-form">
+        <h3 data-en="Acquire `usdc.school` Today" data-zh="立即获取 `usdc.school`">Acquire `usdc.school` Today</h3>
+        <p data-en="This is a category-defining domain awaiting your strategic vision. Please fill out the form below, or contact us directly via email, and we will contact you shortly to discuss this unique investment opportunity." data-zh="这是一个定义品类的域名，等待您的战略愿景。请填写以下表格，或直接通过电子邮件联系我们，我们将尽快与您联系，讨论这项独特的投资机会。">This is a category-defining domain awaiting your strategic vision. Please fill out the form below, or contact us directly via email, and we will contact you shortly to discuss this unique investment opportunity.</p>
+        <p data-en="Email: " data-zh="电子邮件：">Email: </p><a href="mailto:6639085@gmail.com">6639085@gmail.com</a>
+
+        <!-- Google Form Embed Code -->
+        <iframe id="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSepmzgG0NtDuKRVWN09BIw3OZCRY7thEgwQVCHTlnbwljiGAA/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">加载中…</iframe>
+
+        <p class="privacy-note" data-en="Your information will be kept strictly confidential. We respect your privacy. All high-value transactions will be conducted via secure escrow services." data-zh="您的信息将严格保密。我们尊重您的隐私。所有高价值交易将通过安全托管服务进行。">Your information will be kept strictly confidential. We respect your privacy. All high-value transactions will be conducted via secure escrow services.</p>
+    </section>
+
+    <footer>
+        <p data-en="&copy; 2025 USDC.school. All rights reserved." data-zh="&copy; 2025 USDC.school. 保留所有权利。">&copy; 2025 USDC.school. All rights reserved.</p>
+        <p data-en="This page is for demonstrating domain sale intent only. Actual transactions will be conducted via secure escrow services to ensure the interests of both parties." data-zh="此页面仅用于展示域名出售意向。实际交易将通过安全托管服务进行，以确保双方权益。">This page is for demonstrating domain sale intent only. Actual transactions will be conducted via secure escrow services to ensure the interests of both parties.</p>
+        <p id="footer-disclaimer" data-en="Disclaimer: USDC.school is an independent educational resource platform and is not officially affiliated with, endorsed by, or sponsored by Circle or USDC." data-zh="免责声明：USDC.school 是一个独立的教育资源平台，与 Circle 或 USDC 没有任何官方关联、认可或赞助。">Disclaimer: USDC.school is an independent educational resource platform and is not officially affiliated with, endorsed by, or sponsored by Circle or USDC.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carousel functionality
+            const slides = document.querySelectorAll('.carousel-slide');
+            let currentSlide = 0;
+            const slideInterval = 5000; // 5 seconds per slide
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Initial display of the first slide
+            showSlide(currentSlide);
+
+            // Auto-play
+            setInterval(nextSlide, slideInterval);
+
+            // Language toggle functionality
+            const langEnButton = document.getElementById('lang-en');
+            const langZhButton = document.getElementById('lang-zh');
+            const htmlTag = document.documentElement; // Get the html tag
+
+            function setLanguage(lang) {
+                // Update html lang attribute
+                htmlTag.lang = lang;
+
+                // Update all elements with data-en or data-zh attributes
+                document.querySelectorAll('[data-en]').forEach(element => {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        // For input and textarea, update placeholder
+                        element.placeholder = element.getAttribute(`data-${lang}-placeholder`) || element.getAttribute(`data-${lang}`);
+                    } else if (element.tagName === 'A' && element.classList.contains('button')) {
+                        // For anchor tags that are buttons, update textContent
+                        element.textContent = element.getAttribute(`data-${lang}`);
+                    }
+                    else {
+                        // For other elements, update textContent
+                        element.textContent = element.getAttribute(`data-${lang}`);
+                    }
+                });
+
+                // Update active button class
+                langEnButton.classList.remove('active');
+                langZhButton.classList.remove('active');
+                if (lang === 'en') {
+                    langEnButton.classList.add('active');
+                } else {
+                    langZhButton.classList.add('active');
+                }
+            }
+
+            // Set default language to English on load
+            setLanguage('en');
+
+            // Event listeners for language buttons
+            langEnButton.addEventListener('click', () => setLanguage('en'));
+            langZhButton.addEventListener('click', () => setLanguage('zh'));
+        });
+    </script>
+</body>
+</html>
