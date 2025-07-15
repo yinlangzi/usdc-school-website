@@ -34,12 +34,22 @@
             z-index: 1; /* Ensure content is above carousel */
         }
 
-        /* Language toggle container */
-        .language-toggle {
+        /* Top bar container for language and social links */
+        .top-bar-container {
             position: absolute;
             top: 20px;
-            right: 20px;
-            z-index: 10; /* Ensure it's on top */
+            width: calc(100% - 40px); /* Account for padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            padding: 0 20px; /* Match header padding */
+        }
+
+        /* Language toggle container */
+        .language-toggle {
+            display: flex; /* Use flex for buttons within */
+            gap: 10px;
         }
 
         .language-toggle button {
@@ -51,7 +61,6 @@
             cursor: pointer;
             font-weight: bold;
             transition: background-color 0.3s ease, border-color 0.3s ease;
-            margin: 0 5px;
         }
 
         .language-toggle button:hover {
@@ -64,6 +73,70 @@
             color: #0052FF;
             border-color: #FFD700;
         }
+
+        /* Social media links in header */
+        .social-links-header {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .social-link {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            position: relative; /* For WeChat QR code positioning (though not used for WeChat now) */
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .social-link svg {
+            /* Now exclusively controlled by CSS */
+            width: 30px;
+            height: 30px;
+            fill: currentColor; /* Use parent's color */
+            vertical-align: middle; /* Align icons nicely */
+        }
+
+        /* WeChat QR code specific styles (kept for reference, but not used by removed element) */
+        .wechat-qr-container {
+            position: absolute;
+            top: 40px; /* Position below the icon in the header */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 100; /* Ensure it's on top */
+            white-space: nowrap; /* Prevent text wrapping inside */
+        }
+
+        .social-link:hover .wechat-qr-container {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .wechat-qr-container img {
+            display: block;
+            width: 120px; /* Size of the QR code */
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        .wechat-qr-container p {
+            color: #333;
+            font-size: 0.8em;
+            margin-top: 5px;
+            text-align: center;
+        }
+
 
         /* Carousel container */
         #header-carousel {
@@ -372,6 +445,30 @@
             #inquiry-form {
                 padding: 30px;
             }
+
+            .top-bar-container {
+                flex-direction: column;
+                gap: 15px;
+                top: 10px; /* Adjust top position for smaller screens */
+            }
+
+            .social-links-header {
+                gap: 15px;
+            }
+
+            .social-link svg {
+                width: 25px;
+                height: 25px;
+            }
+
+            .wechat-qr-container {
+                top: 35px; /* Adjust position relative to smaller icons */
+                padding: 8px;
+            }
+            .wechat-qr-container img {
+                width: 100px;
+                height: 100px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -406,10 +503,29 @@
 </head>
 <body>
     <header>
-        <!-- Language Toggle Buttons -->
-        <div class="language-toggle">
-            <button id="lang-en" class="active">English</button>
-            <button id="lang-zh">中文</button>
+        <!-- Top bar container for social links and language toggle -->
+        <div class="top-bar-container">
+            <!-- Social media links in header -->
+            <div class="social-links-header">
+                <a href="https://t.me/shanghaidongtian" target="_blank" class="social-link" aria-label="Telegram">
+                    <!-- Telegram SVG Icon (User provided, width/height removed for CSS control) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 50 50" fill="currentColor">
+                        <path d="M25,2c12.703,0,23,10.297,23,23S37.703,48,25,48S2,37.703,2,25S12.297,2,25,2z M32.934,34.375	c0.423-1.298,2.405-14.234,2.65-16.783c0.074-0.772-0.17-1.285-0.648-1.514c-0.578-0.278-1.434-0.139-2.427,0.219	c-1.362,0.491-18.774,7.884-19.78,8.312c-0.954,0.405-1.856,0.847-1.856,1.487c0,0.45,0.267,0.703,1.003,0.966	c0.766,0.273,2.695,0.858,3.834,1.172c1.097,0.303,2.346,0.04,3.046-0.395c0.742-0.461,9.305-6.191,9.92-6.693	c0.614-0.502,1.104,0.141,0.602,0.644c-0.502,0.502-6.38,6.207-7.155,6.997c-0.941,0.959-0.273,1.953,0.358,2.351	c0.721,0.454,5.906,3.932,6.687,4.49c0.781,0.558,1.573,0.811,2.298,0.811C32.191,36.439,32.573,35.484,32.934,34.375z"></path>
+                    </svg>
+                </a>
+                <a href="https://x.com/jezielyin99270" target="_blank" class="social-link" aria-label="X (Twitter)">
+                    <!-- X (Twitter) SVG Icon (User provided, width/height removed for CSS control) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 50 50" fill="currentColor">
+                        <path d="M 11 4 C 7.134 4 4 7.134 4 11 L 4 39 C 4 42.866 7.134 46 11 46 L 39 46 C 42.866 46 46 42.866 46 39 L 46 11 C 46 7.134 42.866 4 39 4 L 11 4 z M 13.085938 13 L 21.023438 13 L 26.660156 21.009766 L 33.5 13 L 36 13 L 27.789062 22.613281 L 37.914062 37 L 29.978516 37 L 23.4375 27.707031 L 15.5 37 L 13 37 L 22.308594 26.103516 L 13.085938 13 z M 16.914062 15 L 31.021484 35 L 34.085938 35 L 19.978516 15 L 16.914062 15 z"></path>
+                    </svg>
+                </a>
+                <!-- WeChat link removed -->
+            </div>
+            <!-- Language Toggle Buttons -->
+            <div class="language-toggle">
+                <button id="lang-en" class="active">English</button>
+                <button id="lang-zh">中文</button>
+            </div>
         </div>
 
         <!-- Carousel container -->
@@ -483,29 +599,6 @@
         </div>
     </section>
 
-    <section id="why-premium" class="section-dark">
-        <h3 data-en="Why `usdc.school` is Your Premium Investment?" data-zh="为何 `usdc.school` 是您的优质投资？">Why `usdc.school` is Your Premium Investment?</h3>
-        <p data-en="This domain combines brevity, high-demand keywords, and niche relevance, making it an exceptional strategic asset that transcends traditional domain valuation." data-zh="该域名结合了简洁性、高需求关键词和特定利基市场的相关性，使其成为一项卓越的战略资产，超越了传统域名的价值范畴。">This domain combines brevity, high-demand keywords, and niche relevance, making it an exceptional strategic asset that transcends traditional domain valuation.</p>
-        <div class="grid-container">
-            <div class="feature-item">
-                <h4 data-en="Concise & Memorable" data-zh="简洁易记">Concise & Memorable</h4>
-                <p data-en="Short and powerful, easy to remember and type, enhancing brand recognition and recall." data-zh="短小精悍，易于记忆和输入，提升品牌识别度和用户召回率。">Short and powerful, easy to remember and type, enhancing brand recognition and recall.</p>
-            </div>
-            <div class="feature-item">
-                <h4 data-en="High-Demand Keyword" data-zh="高需求关键词">High-Demand Keyword</h4>
-                <p data-en="“USDC” is a highly relevant and recognized keyword in the industry, with significant search volume and market influence, providing instant credibility." data-zh="“USDC”是行业内高度相关且广受认可的关键词，具有巨大搜索量和市场影响力，赋予即时信誉。">“USDC” is a highly relevant and recognized keyword in the industry, with significant search volume and market influence, providing instant credibility.</p>
-            </div>
-            <div class="feature-item">
-                <h4 data-en="Precise Niche Market" data-zh="精准利基市场">Precise Niche Market</h4>
-                <p data-en="The “.school” TLD precisely targets Web3 education and institutional buyers, attracting strategic investments rather than a general market." data-zh="“.school”顶级域名精准定位 Web3 教育和机构买家，吸引战略性投资，而非通用市场。">The “.school” TLD precisely targets Web3 education and institutional buyers, attracting strategic investments rather than a general market.</p>
-            </div>
-            <div class="feature-item">
-                <h4 data-en="Branding Potential" data-zh="品牌塑造潜力">Branding Potential</h4>
-                <p data-en="Unique and striking, it immediately conveys its purpose, ideal for establishing an authoritative brand and reducing marketing costs." data-zh="独特且引人注目，能立即传达其目的，非常适合建立权威品牌，降低营销成本。">Unique and striking, it immediately conveys its purpose, ideal for establishing an authoritative brand and reducing marketing costs.</p>
-            </div>
-        </div>
-    </section>
-
     <section id="inquiry-form">
         <h3 data-en="Acquire `usdc.school` Today" data-zh="立即获取 `usdc.school`">Acquire `usdc.school` Today</h3>
         <p data-en="This is a category-defining domain awaiting your strategic vision. Please fill out the form below, or contact us directly via email, and we will contact you shortly to discuss this unique investment opportunity." data-zh="这是一个定义品类的域名，等待您的战略愿景。请填写以下表格，或直接通过电子邮件联系我们，我们将尽快与您联系，讨论这项独特的投资机会。">This is a category-defining domain awaiting your strategic vision. Please fill out the form below, or contact us directly via email, and we will contact you shortly to discuss this unique investment opportunity.</p>
@@ -520,7 +613,7 @@
     <footer>
         <p data-en="&copy; 2025 USDC.school. All rights reserved." data-zh="&copy; 2025 USDC.school. 保留所有权利。">&copy; 2025 USDC.school. All rights reserved.</p>
         <p data-en="This page is for demonstrating domain sale intent only. Actual transactions will be conducted via secure escrow services to ensure the interests of both parties." data-zh="此页面仅用于展示域名出售意向。实际交易将通过安全托管服务进行，以确保双方权益。">This page is for demonstrating domain sale intent only. Actual transactions will be conducted via secure escrow services to ensure the interests of both parties.</p>
-        <p id="footer-disclaimer" data-en="Disclaimer: USDC.school is an independent educational resource platform and is not officially affiliated with, endorsed by, or sponsored by Circle or USDC." data-zh="免责声明：USDC.school 是一个独立的教育资源平台，与 Circle 或 USDC 没有任何官方关联、认可或赞助。">Disclaimer: USDC.school is an independent educational resource platform and is not officially affiliated with, endorsed by, or sponsored by Circle or USDC.</p>
+        <p id="footer-disclaimer" data-en="Disclaimer: USDC.school is an independent educational resource platform and is not officially affiliated with, endorsed by, or sponsored by Circle or USDC." data-zh="免责声明：USDC.school 是一个独立的教育资源平台，与 Circle 或 USDC 没有任何官方关联、认可或赞助。">Disclaimer: USDC.school is一个独立的教育资源平台，与 Circle 或 USDC 没有任何官方关联、认可或赞助。</p>
     </footer>
 
     <script>
@@ -562,6 +655,10 @@
 
                 // Update all elements with data-en or data-zh attributes
                 document.querySelectorAll('[data-en]').forEach(element => {
+                    // Check if the element is a social link before updating textContent
+                    // Social links are identified by having a 'social-link' class AND containing an SVG
+                    const isSocialLinkWithSVG = element.classList.contains('social-link') && element.querySelector('svg');
+
                     if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                         // For input and textarea, update placeholder
                         element.placeholder = element.getAttribute(`data-${lang}-placeholder`) || element.getAttribute(`data-${lang}`);
